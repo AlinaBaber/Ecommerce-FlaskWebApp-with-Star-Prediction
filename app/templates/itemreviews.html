@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+	{{ item.name }}
+{% endblock %}
+
+{% block content %}
+	{% with msgs =  get_flashed_messages(with_categories=True) %}
+	{% for c, msg in msgs %}
+		{% if c == 'error' %}
+			<div class="flash-error">
+		{% else %}
+			<div class="success">
+		{% endif %}
+			{{ msg | safe}}</div><br>
+	{% endfor %}
+	{% endwith %}
+
+			<div class="item-display">
+				<div class="img-wrapper">
+					<img src="{{ item.image }}" class="pic">
+				</div>
+				<b>{{ item.name }}</b>
+				<span class="right-item">PKR{{ item.price }}</span><br>
+				{% for c in rating %}
+				<i class="fa fa-star checked"></i>
+		        {% endfor %}
+                <div class="details">{{ item.details | safe }}</div>
+
+                	<h3 class="text-center"> Add Revews</h3>
+	<hr>
+	{% with msgs =  get_flashed_messages(with_categories=True) %}
+		{% for c, msg in msgs %}
+			{% if c == 'error' %}
+				<div class="flash-error"></div>
+			{% else %}
+				<div class="success">
+			{% endif %}
+				{{ msg | safe }}</div><br>
+		{% endfor %}
+	{% endwith %}
+	<div class="forms">
+		{{ wtf.quick_form(form) }}
+	</div>
+				<h3 class="text-center">Revews</h3>
+				{% for c in reviews %}
+				<div class="details">{{ c | safe }}</div>
+		        {% endfor %}
+			</div>
+</div>
+{% endblock %}
